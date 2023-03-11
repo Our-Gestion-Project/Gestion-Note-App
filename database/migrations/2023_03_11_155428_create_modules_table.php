@@ -9,17 +9,16 @@ return new class extends Migration
     /**
      * Run the migrations.
      */
-    public function up()
+    public function up(): void
     {
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
-            $table->string('code');
-            $table->integer('professeur_id')->unsigned();
-            $table->float('pourecentage_tp');
+            $table->string('Intitule',200);
+            $table->integer('code_secret');
+            $table->decimal('coef_TP',9,2);
+            $table->decimal('coef_CF',9,2);
         });
     }
-    
-    
 
     /**
      * Reverse the migrations.
