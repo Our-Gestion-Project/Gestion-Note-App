@@ -11,11 +11,11 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('responsabilite', function (Blueprint $table) {
+        Schema::create('responsabilites', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('module_id');
-            $table->bigInteger('user_id');
-            $table->bigInteger('sesstion_id');
+            $table->foreignId('module_id')->constrained();
+            $table->foreignId('user_id')->constrained();
+            $table->foreignId('sessions_id')->constrained();
         });
     }
 
@@ -24,6 +24,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('responsabilite');
+        Schema::dropIfExists('responsabilites');
     }
 };

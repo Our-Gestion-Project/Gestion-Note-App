@@ -13,14 +13,15 @@ return new class extends Migration
     {
         Schema::create('notes', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('etudiant_id');
-            $table->bigInteger('module_id');
-            $table->bigInteger('session_id');
-            $table->decimal('CF_N',9,2);
-            $table->decimal('TP_N',9,2);
-            $table->decimal('MG_N',9,2);
-            $table->decimal('CF_R',9,2);
-            $table->decimal('MG_R',9,2);
+            $table->foreignId('etudiant_id')->constrained();
+            $table->foreignId('module_id')->constrained();
+            $table->foreignId('session_id')->constrained();
+            $table->decimal('CF_N',9,2)->nullable();
+            $table->decimal('TP_N',9,2)->nullable();
+            $table->decimal('MG_N',9,2)->nullable();
+            $table->decimal('CF_R',9,2)->nullable();
+            $table->decimal('MG_R',9,2)->nullable();
+            
         });
     }
 

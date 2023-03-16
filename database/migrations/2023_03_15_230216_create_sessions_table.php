@@ -15,7 +15,6 @@ return new class extends Migration
             $table->id();
             $table->string('Niveau',200);
             $table->integer('Annee');
-
         });
     }
 
@@ -24,6 +23,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('sesstions');
+        Schema::dropIfExists('sessions');
     }
 };

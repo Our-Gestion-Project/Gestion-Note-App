@@ -11,12 +11,12 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('etudiants', function (Blueprint $table) {
+        Schema::create('modules', function (Blueprint $table) {
             $table->id();
-            $table->string('Nom',200);
-            $table->string('Prenom',200);
-            $table->string('CNE',200);
-            $table->string('CNI',200);
+            $table->string('Intitule',200);
+            $table->integer('code_secret');
+            $table->decimal('coef_TP',9,2)->nullable();
+            $table->decimal('coef_CF',9,2);
         });
     }
 
@@ -25,6 +25,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('etudiants');
+        Schema::dropIfExists('modules');
     }
 };
