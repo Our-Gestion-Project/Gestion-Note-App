@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaisirController;
+use App\Http\Controllers\SecretCodeController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -17,7 +18,7 @@ use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
-});
+})->name('welcome');
 
 Route::get('/dashboard', function () {
     return view('dashboard');
@@ -25,15 +26,13 @@ Route::get('/dashboard', function () {
 
 Route::middleware('auth')->group(function () {
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    route::get('/saisir-note-sesstion-normale',[SaisirController::class,'saisir_normale'])->name('normale');
-    route::get('/saisir-note-sesstion-rattrapage',[SaisirController::class,'saisir_rattrapage'])->name('rattrapage');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
-
+    Route::post('verifier_code_secret/{ids}',[SecretCodeController::class,'verifier_information'])->name('verifier');
+    Route::get('Saisir_code_secret/{ids}', [SecretCodeController::class,'saisir_code_secret'])->name('codeS');
 });
 
 require __DIR__.'/auth.php';
+    
 
-# For test
-# Email admin.admin@gmail.com
-# Password admin1234
+

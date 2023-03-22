@@ -46,12 +46,13 @@
                     </x-slot>
 
                     <x-slot name="content">
-                        <x-dropdown-link href="{{ route('normale') }}">
-                            Sesstion <b>Normale</b>
-                        </x-dropdown-link>
-                        <x-dropdown-link href="{{ route('rattrapage') }}">
-                            Sesstion <b>Rattrapage</b>
-                        </x-dropdown-link>
+                    <x-dropdown-link href="{{route('codeS',['ids'=>1])}}">
+                        Sesstion <b>Normale</b>
+                    </x-dropdown-link>
+
+                    <x-dropdown-link href="{{route('codeS',['ids'=>2])}}">
+                        Sesstion <b>Rattrapage</b>
+                    </x-dropdown-link>
                     </x-slot>
                 </x-dropdown>
             </div>
@@ -128,11 +129,11 @@
                         {{ __('Moodle') }}
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('normale') }}">
+            <x-responsive-nav-link href="{{route('codeS',['ids'=>1])}}">
                         Sesstion <b>Normale</b>
             </x-responsive-nav-link>
 
-            <x-responsive-nav-link href="{{ route('rattrapage') }}">
+            <x-responsive-nav-link href="{{route('codeS',['ids'=>2])}}">
                         Sesstion <b>Rattrapage</b>
             </x-responsive-nav-link>
 
@@ -168,3 +169,4 @@
         </div>
     </div>
 </nav>
+

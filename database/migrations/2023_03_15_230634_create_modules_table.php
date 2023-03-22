@@ -14,7 +14,7 @@ return new class extends Migration
         Schema::create('modules', function (Blueprint $table) {
             $table->id();
             $table->string('Intitule',200);
-            $table->integer('code_secret');
+            $table->integer('code_secret')->unique();
             $table->decimal('coef_TP',9,2)->nullable();
             $table->decimal('coef_CF',9,2);
         });
