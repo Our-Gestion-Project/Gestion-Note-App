@@ -9,10 +9,18 @@
             <div class="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                 <div class="p-6 text-gray-900 dark:text-gray-100">
 
+                <div class="success alert">
                 Bonjours {{ $user_name }}, Vous avez saisir les note de module  {{$module_name}} de la session {{ $SESSION }}
-
                 </div>
-            </div>
+                </div>
+                <p> Le coeficient de {{$module_name }} est : {{$module_coef_tp[0]}} %</p>
+                <br>
+                <p> les etudiants qui sont inscrit dans ce module : </p>
+                <br>
+            @foreach ($etudiant as $etd)
+                ID : {{ $etd->id }}  Nom :  {{ $etd->nom }}  Prénom : {{ $etd->prenom }} <br>
+            @endforeach
+                </div>
         </div>
     </div>
 </x-app-layout>

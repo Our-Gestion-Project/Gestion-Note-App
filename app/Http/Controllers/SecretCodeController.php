@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use App\Http\Controllers\SaisirController;
 
 class SecretCodeController extends Controller
 {
@@ -17,7 +18,7 @@ class SecretCodeController extends Controller
     
         $tables = DB::table('users')
                         ->join('responsabilites','users.id','=','responsabilites.user_id')
-                        ->join('modules','module_id','=','responsabilites.module_id')
+                        ->join('modules','modules.id','=','responsabilites.module_id')
                         ->where('users.id','=',$id);
 
         $code_secret_db = $tables->pluck('modules.code_secret')
@@ -28,17 +29,15 @@ class SecretCodeController extends Controller
                            ->first();
             $user_name = $tables->pluck('users.name')
                             ->first();
-            if($ids == 1){
+            if($ids == 1)
                 $SESSION ="Normale";
-                return view('Principale.Saisir',['SESSION'=>$SESSION,'module_name'=>$module_name,'user_name'=>$user_name]);
-            }    
-                else{
-                    $SESSION ="Rattrapage";
-                    return view('Principale.Saisir',['SESSION'=>$SESSION,'module_name'=>$module_name,'user_name'=>$user_name]);
-                }
+            else
+                $SESSION ="Rattrapage";
+            return redirect()->action([SaisirController::class,'saisir_note'],['SESSION'=>$SESSION,'module_name' => $module_name, 'user_name' => $user_name]);
         }
-        else 
-            return redirect()->back();
+        return redirect()->back()->with('error', 'Le code que vous avez saisi est incorrect.');
+        
+    // dd($r->all());
 
     }
 
