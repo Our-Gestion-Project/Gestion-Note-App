@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ExportingDataController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\SaisirController;
 use App\Http\Controllers\SecretCodeController;
@@ -30,8 +31,11 @@ Route::middleware('auth')->group(function () {
     Route::post('verifier_code_secret/{ids}',[SecretCodeController::class,'verifier_information'])->name('verifier');
     Route::get('Saisir_code_secret/{ids}', [SecretCodeController::class,'saisir_code_secret'])->name('codeS');
     Route::get('/saisir-note', [SaisirController::class,'saisir_note'])->name('saisir');
-
+    Route::post('export-data-note{module_name}',[ExportingDataController::class,'exporter_note'])->name('noteEx');
 });
 
 require __DIR__.'/auth.php';
     
+
+// https://www.youtube.com/watch?v=fFLMbMvsTwo
+// https://www.youtube.com/watch?v=OMqt55n8Zlc

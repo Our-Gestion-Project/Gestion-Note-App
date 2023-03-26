@@ -840,3 +840,6 @@
         border-radius: 0.25rem;
       }
       
+      .alert-danger:hover,.success {
+        cursor: pointer;
+      }

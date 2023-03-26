@@ -17,4 +17,10 @@ class Etudiant extends Model
     ];
 
     public $timestamps = false;
+    
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+    
 }

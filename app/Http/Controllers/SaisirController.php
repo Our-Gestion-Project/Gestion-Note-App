@@ -31,10 +31,7 @@ class SaisirController extends Controller
                     ->select('etudiants.id',
                      'etudiants.nom',
                       'etudiants.prenom',
-                      'notes.cf_n',
-                      'notes.tp_n',
-                      'notes.mg_n'
-                      )->get();
+                      )->get();             #->paginate(10); 
 
         $module_coef_tp = DB::table('modules')
                         ->where('modules.id','=',$module_id)

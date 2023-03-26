@@ -10,7 +10,7 @@
                 <div class="p-6 text-gray-900 dark:text-gray-100">
               
                 @if(session('error'))
-                    <div class="alert-danger">
+                    <div onclick="this.style.display='none'" class="alert-danger">
                         {{ session('error') }}
                     </div>
                 @endif
@@ -18,7 +18,7 @@
                     <form method="POST" action="{{route('verifier',['ids' =>  $ids ]) }}">
                         @csrf
                         <label for="code_saisi">Code secret :</label>
-                        <input type="text" name="code_saisi" id="code_saisi">
+                        <input pattern="[0-9]{1,4}" type="text" name="code_saisi" id="code_saisi">
                         <button type="submit">Valider</button>
                     </form>
 
