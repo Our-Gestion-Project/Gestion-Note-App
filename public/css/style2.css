@@ -814,7 +814,7 @@
             }
 
             table td {
-                border-color: sandybrown;
+                /*border-color: sandybrown;*/
                 border-style: solid;
                 border-width: 1px;
             }
@@ -828,8 +828,9 @@
                 margin-bottom: 1rem;
                 border: 1px solid transparent;
                 border-radius: 0.25rem;
-              }
+            }
 
+<<<<<<< HEAD
 .success {
         background-color: #d4edda;
         border-color: #c3e6cb;
@@ -843,3 +844,14 @@
       .alert-danger:hover,.success {
         cursor: pointer;
       }
+=======
+            .success {
+                background-color: #d4edda;
+                border-color: #c3e6cb;
+                color: #155724;
+                padding: 0.75rem 1.25rem;
+                margin-bottom: 1rem;
+                border: 1px solid transparent;
+                border-radius: 0.25rem;
+            }
+>>>>>>> 88c42b4 (GG)

@@ -36,12 +36,16 @@ class SaisirController extends Controller
         $module_coef_tp = DB::table('modules')
                         ->where('modules.id','=',$module_id)
                         ->pluck('modules.coef_tp');
-                    
+        $module_coef_cf = DB::table('modules')
+                        ->where('modules.id','=',$module_id)
+                        ->pluck('modules.coef_cf');            
         return view('Principale.Saisir',['SESSION'=>$SESSION,
             'module_name'=>$module_name,
             'user_name'=>$user_name,
             'etudiant'=>$etudiant,
             'module_coef_tp' => $module_coef_tp,
+            'module_coef_cf' => $module_coef_cf,
+            
         ]);
     }
 
