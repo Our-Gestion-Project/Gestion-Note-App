@@ -3,6 +3,12 @@
     <x-slot name="header">
         <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
         Saisir les notes de session {{ $SESSION }} 
+        <form method="POST" action="{{route('noteEx',['module_name'=> $module_name])}}">
+                                    @csrf
+                                    <div class="text-right">
+                                    <button class="btn btn-success btn-sm btn-outline-primary " type="submit">Exporter</button>
+</div>
+                        </form>     
         </h2>
     </x-slot>
 
@@ -46,7 +52,7 @@
               </div >
 
         <!--Pour la table -->
-
+        
         
               <div class="col-md-9">
                         <div class="card">
@@ -72,6 +78,8 @@
                                 <div class="card-header">
                         <h4>Saisir les notes de session {{ $SESSION }} </h4>
                         <div class="text-right">
+                        <div class="max-w-7xl mx-auto sm:px-6 lg:px-8">
+                        
                                     <input class="btn btn-success btn-sm btn-outline-primary " type="submit" value="Save all">
                                   </div>
                             </div>
