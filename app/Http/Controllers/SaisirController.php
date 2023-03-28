@@ -16,6 +16,8 @@ class SaisirController extends Controller
         $SESSION = $request->input('SESSION');
         $id_prof = Auth::id();
 
+        $rows = $request->input('rows') ?? 10;
+
         $responsabilites_table = DB::table('responsabilites')
                 ->where('user_id', '=', $id_prof);
                 
@@ -31,7 +33,7 @@ class SaisirController extends Controller
                     ->select('etudiants.id',
                      'etudiants.nom',
                       'etudiants.prenom',
-                      )->get();             #->paginate(10); 
+                      )->paginate($rows);             #->paginate(10); 
 
         $module_coef_tp = DB::table('modules')
                         ->where('modules.id','=',$module_id)
@@ -49,4 +51,12 @@ class SaisirController extends Controller
         ]);
     }
 
+    function pagination(Request $r){
+        $rows = $r->input('rows');
+
+        $data = DB::table('my_table')->take($rows)->get();
+    
+        return view('data', ['data' => $data]);
+
+    }
 }

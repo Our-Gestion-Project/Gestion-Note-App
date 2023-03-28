@@ -61,14 +61,18 @@
                                 <div class="table-responsive dataTable-wrapper dataTable-loading no-footer sortable searchable fixed-columns">
                                 <div class="dataTable-top">
                                 <div class="dataTable-dropdown">
-                                  <select class="dataTable-selector form-select">
-                                    <option value="5">5</option>
-                                    <option value="10" selected="">10</option>
-                                    <option value="15">15</option>
-                                    <option value="20">20</option>
-                                    <option value="25">25</option>
-                                  </select>
-                                  <label> entries per page</label>
+                                <form action="{{route('saisir')}}" method="get">
+                                    <label for="rows">Nombre de lignes :</label>
+                                    <select id="rows" name="rows">
+                                        <option value="5">5</option>
+                                        <option value="10">10</option>
+                                        <option value="15">15</option>
+                                        <option value="20">20</option>
+                                        <option value="25">25</option>
+                                    </select>
+                                    <button type="submit">Afficher</button>
+                                </form>
+
                                 </div>
                                 <div class="dataTable-search">
                                   <input class="dataTable-input" placeholder="Search..." type="text">
@@ -116,6 +120,7 @@
                                         </tbody>
                                     </table>
                                 </form>
+                                {{ $etudiant->oneachside(1)->links() }}
                                 </div>
                             </div>
 
