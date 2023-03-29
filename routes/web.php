@@ -39,3 +39,13 @@ require __DIR__.'/auth.php';
 
 // https://www.youtube.com/watch?v=fFLMbMvsTwo
 // https://www.youtube.com/watch?v=OMqt55n8Zlc
+
+
+
+
+
+
+//ghi khliha
+Route::get('/test', function () {
+    return view('test');
+})->name('test');
