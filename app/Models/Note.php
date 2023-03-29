@@ -4,6 +4,10 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use app\Models\Etudiant;
+use app\Models\Module;
+use app\Models\Session;
+use app\Models\User;
 
 class Note extends Model
 {
@@ -21,4 +25,25 @@ class Note extends Model
     ];
 
     public $timestamps = false;
+
+    public function etudiant()
+    {
+        return $this->belongsTo(Etudiant::class);
+    }
+
+    public function module()
+    {
+        return $this->belongsTo(Module::class);
+    }
+
+    public function session()
+    {
+        return $this->belongsTo(Session::class);
+    }
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
 }

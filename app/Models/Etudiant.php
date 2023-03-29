@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Note;
 
 class Etudiant extends Model
 {
@@ -22,5 +23,6 @@ class Etudiant extends Model
     {
         return $this->hasMany(Note::class);
     }
+    
     
 }

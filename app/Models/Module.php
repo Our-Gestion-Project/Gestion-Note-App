@@ -4,6 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\User;
+use App\Models\Responsabilite;
+use App\Models\Note;
 
 class Module extends Model
 {
@@ -20,4 +23,20 @@ class Module extends Model
     ];
 
     public $timestamps = false;
+
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
+
+    public function notes()
+    {
+        return $this->hasMany(Note::class);
+    }
+
+    public function responsabilites()
+    {
+        return $this->hasMany(Responsabilite::class);
+    }
+
 }

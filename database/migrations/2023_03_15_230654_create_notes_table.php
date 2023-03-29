@@ -21,7 +21,7 @@ return new class extends Migration
             $table->decimal('MG_N',9,2)->nullable();
             $table->decimal('CF_R',9,2)->nullable();
             $table->decimal('MG_R',9,2)->nullable();
-            
+            $table->foreignId('user_id')->constrained();
         });
     }
 
