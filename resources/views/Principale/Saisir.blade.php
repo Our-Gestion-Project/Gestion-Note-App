@@ -43,6 +43,8 @@ FSDM
 
 <!-- Row -->
 <div class="row">
+
+
             
             <!-- DataTable with Hover -->
             <div class="col-md-9">
@@ -55,25 +57,32 @@ FSDM
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
+                        <th>id</th>
+                        <th>nom et prenom</th>
+                        <th>note tp</th>
+                        <th>note cf</th>
+                        <th>moyen generale</th>
+                        <th>etat</th>
                       </tr>
                     </thead>
-                    <tfoot>
-                      <tr>
-                        <th>Name</th>
-                        <th>Position</th>
-                        <th>Office</th>
-                        <th>Age</th>
-                        <th>Start date</th>
-                        <th>Salary</th>
-                      </tr>
-                    </tfoot>
                     <tbody>
+                      <!-- Zedt hadi Gher bach n tester hta t modifieha  -->
+                    <form method="post" action="{{ route('save',['module_id'=> $module_id]) }}">
+                        @csrf
+                        @foreach($etudiant as $e)
+                        <tr>
+                        <td>{{ $e['id'] }} </td>
+                        <td> {{$e['nom']}}  {{$e['prenom']}}</td>
+                        <td> <input type="number" name="noteTp[{{ $e['id'] }}]" min="0" max="20" step="0.1" /> </td>
+                        <td> <input type="number" name="noteCf[{{ $e['id'] }}]" min="0" max="20" step="0.1" /> </td>
+                        <td> 14</td>
+                        <td> valide</td>
+                        </tr>
+                        @endforeach
+                        <button type="submit">Save</button>
+                        </form>
+                        <!-- Fin de modification Par Ahmed  -->
+                    {{--
                       <tr>
                         <td>Tiger Nixon</td>
                         <td>System Architect</td>
@@ -530,6 +539,7 @@ FSDM
                         <td>2011/01/25</td>
                         <td>$112,000</td>
                       </tr>
+                      --}}
                     </tbody>
                   </table>
                 </div>

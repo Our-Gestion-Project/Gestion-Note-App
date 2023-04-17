@@ -16,10 +16,12 @@ class Module extends Model
         'Intitule',
         'coef_TP',
         'coef_CF',
+        'user_id',
+        'code_secret',
     ];
 
     protected $hidden = [
-        'code_secret',
+        
     ];
 
     public $timestamps = false;

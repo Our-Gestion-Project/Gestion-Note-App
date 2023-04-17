@@ -19,7 +19,6 @@ class SaisirController extends Controller
         $SESSION = $request->input('SESSION');
         $id_prof = Auth::id();
     
-        $rows = $request->input('rows') ?? 10;
     
         $responsabilites_table = User::findOrFail($id_prof)->responsabilites;
                     
@@ -33,13 +32,14 @@ class SaisirController extends Controller
                     ->select('etudiants.id',
                      'etudiants.nom',
                       'etudiants.prenom',
-                      )->paginate($rows);             #->paginate(10); 
+                      )->get();
     
         $module_coef_tp = Module::where('id','=',$module_id)
                         ->pluck('coef_tp')->first();
         $module_coef_cf = Module::where('id','=',$module_id)
                         ->pluck('coef_cf')->first();            
         return view('Principale.Saisir',['SESSION'=>$SESSION,
+            'module_id' =>$module_id,
             'module_name'=>$module_name,
             'user_name'=>$user_name,
             'etudiant'=>$etudiant,

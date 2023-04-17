@@ -22,6 +22,7 @@ class Note extends Model
         'MG_N',
         'CF_R',
         'MG_R',
+        'user_id'
     ];
 
     public $timestamps = false;
