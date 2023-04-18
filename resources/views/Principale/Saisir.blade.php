@@ -10,7 +10,7 @@ FSDM
 
 @section('content')
     <h2 class="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">
-        Saisir les notes de session {{ $SESSION }} 
+        Saisir les notes de session {{ $SESSION }} De module {{ $module_name }} de session {{ $SESSION }}
         <form method="POST" action="{{route('noteEx',['module_name'=> $module_name])}}">
                                     @csrf
                                     <div class="text-right">
@@ -67,8 +67,11 @@ FSDM
                     </thead>
                     <tbody>
                       <!-- Zedt hadi Gher bach n tester hta t modifieha  -->
-                    <form method="post" action="{{ route('save',['module_id'=> $module_id]) }}">
+                    <form method="post" action="{{ route('save')}}">
                         @csrf
+                        <input type="hidden" name="module_id" value="{{ $module_id }}">
+                        <input type="hidden" name="Session" value="{{ $SESSION }}">   
+                        <input type="hidden" name="user" value="{{ $user_id }}">   
                         @foreach($etudiant as $e)
                         <tr>
                         <td>{{ $e['id'] }} </td>

@@ -32,8 +32,8 @@
         </a>
         <div id="collapseBootstrap" class="collapse" aria-labelledby="headingBootstrap" data-parent="#accordionSidebar">
           <div class="bg-white py-2 collapse-inner rounded">
-            <a class="collapse-item" href="{{route('codeS',['ids'=>1])}}">Session <b>Normale</b></a>
-            <a class="collapse-item" href="{{route('codeS',['ids'=>2])}}">Session <b>Rattrapage</b></a>
+            <a class="collapse-item" href="{{route('saisir',['ids'=>1])}}">Session <b>Normale</b></a>
+            <a class="collapse-item" href="{{route('saisir',['ids'=>2])}}">Session <b>Rattrapage</b></a>
           </div>
         </div>
       </li> 

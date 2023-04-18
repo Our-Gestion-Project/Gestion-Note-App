@@ -13,12 +13,12 @@ use Illuminate\Support\Facades\DB;
 class SaisirController extends Controller
 {
 
-    function saisir_note(Request $request){
+    function saisir_note(Request $request,$ids){
+        
         $module_name = $request->input('module_name');
         $user_name = $request->input('user_name');
         $SESSION = $request->input('SESSION');
         $id_prof = Auth::id();
-    
     
         $responsabilites_table = User::findOrFail($id_prof)->responsabilites;
                     
@@ -45,7 +45,7 @@ class SaisirController extends Controller
             'etudiant'=>$etudiant,
             'module_coef_tp' => $module_coef_tp,
             'module_coef_cf' => $module_coef_cf,
-            
+            'user_id'   => $id_prof,
         ]);
     }
         

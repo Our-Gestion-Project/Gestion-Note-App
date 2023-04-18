@@ -33,10 +33,10 @@ FSDM
                                             </div>
                                         @endif
                                         <div class="card-body">
-                                            <form method="POST" action="{{route('verifier',['ids' =>  $ids ]) }}">
+                                            <form method="POST" action="{{route('saisir',['ids' =>  $ids ]) }}">
                                                 @csrf
                                                 <div class="form-group">
-                                                    <input pattern="[0-9]{1,4}" type="text" name="code_saisi" id="code_saisi" class="form-control" placeholder="Entrer le code secret" > 
+                                                    <input pattern="[0-9]{1,4}" type="text" name="code_saisi" id="code_saisi" class="form-control" placeholder="Entrer le code secret" value="{{ old('code_saisi') }}" > 
                                                 </div>
                                                 <div class="form-group">
                                                     <button type="submit" class="btn btn-primary btn-block" >Valider</button>

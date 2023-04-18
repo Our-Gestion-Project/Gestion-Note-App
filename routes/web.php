@@ -30,13 +30,18 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
     Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::post('verifier_code_secret/{ids?}',[SecretCodeController::class,'verifier_information'])->name('verifier');
-    Route::get('Saisir_code_secret/{ids?}', [SecretCodeController::class,'saisir_code_secret'])->name('codeS');
-    Route::get('/saisir-note', [SaisirController::class,'saisir_note'])->name('saisir');
-    Route::post('export-data-note{module_name?}',[ExportingDataController::class,'exporter_note'])->name('noteEx');
-    Route::post('/save_note/{module_id}',[SaisieDBController::class,'save',])->name('save');
+    Route::get('Saisir_code_secret/{ids}', [SecretCodeController::class, 'saisir_code_secret'])->name('codeS');
+    Route::post('export-data-note{module_name}',[ExportingDataController::class,'exporter_note'])->name('noteEx');
+    Route::post('/save_note',[SaisieDBController::class,'save',])->name('save');
 
 });
+
+Route::middleware(['auth.module'])->group(function () {
+
+    Route::match(['get', 'post'], '/saisir-note/{ids}', [SaisirController::class,'saisir_note'])->name('saisir');
+
+});
+
 
 require __DIR__.'/auth.php';
     
