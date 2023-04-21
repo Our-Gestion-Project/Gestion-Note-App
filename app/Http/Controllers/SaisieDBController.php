@@ -1,7 +1,5 @@
 <?php
-
 namespace App\Http\Controllers;
-
 use App\Models\Etudiant;
 use Illuminate\Http\Request;
 
@@ -14,12 +12,12 @@ class SaisieDBController extends Controller
         $module_id = $request->input('module_id'); 
         $Session = $request->input('Session') == "Normale" ? 1 : 2; 
         $user = $request->input('user'); 
-    
+
         foreach ($noteTp as $id => $value) 
         { 
             $etudiant = Etudiant::find($id); 
             $note = $etudiant->notes()->where('module_id', $module_id)->first(); 
-    
+
             if ($note) 
             { 
                 if ($Session == 1) 
@@ -37,11 +35,12 @@ class SaisieDBController extends Controller
                         $note->user_id = $user; 
                     }
                 } 
-    
+
                 $note->save(); 
             } 
         } 
-    
+
         return redirect()->back(); 
     }
+
 }
