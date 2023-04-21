@@ -13,6 +13,7 @@ FSDM
         Saisir les notes de session {{ $SESSION }} De module {{ $module_name }} de session {{ $SESSION }}
         <form method="POST" action="{{route('noteEx',['module_name'=> $module_name])}}">
                                     @csrf
+                                    <input type="hidden" name="idS" value="{{ $SESSION=='Normale' ? 1 : 2}}">
                                     <div class="text-right">
                                     <button class="btn btn-success btn-sm btn-outline-primary " type="submit">Exporter</button>
 </div>

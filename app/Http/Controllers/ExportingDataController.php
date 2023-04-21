@@ -9,9 +9,11 @@ use Maatwebsite\Excel\Facades\Excel;
 class ExportingDataController extends Controller
 {
 
-    public function exporter_note($module_name)
+    public function exporter_note(Request $r,$module_name)
     {
-        $file_name = 'notes_module_' . $module_name . '_.csv';
-        return Excel::download(new NotesExport(), $file_name);
+        $idS = $r->input('idS');
+        $session = ($idS == 1) ? 'Normale' : 'Rattrapage';
+        $file_name = 'notes_module_' . $module_name . '_Session_' . $session . '.csv';
+        return Excel::download(new NotesExport($idS), $file_name);
     }
 }
