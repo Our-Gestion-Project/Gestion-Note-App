@@ -71,7 +71,11 @@ FSDM
                         <th>id</th>
                         <th>nom et prenom</th>
                         <th>note cf</th>
+                        @if($module_coef_cf!=1)
                         <th>note tp</th>
+                        @else
+                        <th></th>
+                        @endif
                         <th>moyen generale</th>
                         <th>etat</th>
                       </tr>
@@ -88,7 +92,11 @@ FSDM
                         <td>{{ $e['id'] }} </td>
                         <td> {{$e['nom']}}  {{$e['prenom']}}</td>
                         <td> <input type="number" class="form-control form-control-sm  mb-3"  name="noteCf[{{ $e['id'] }}]" min="0" max="20" step="0.25" oninput="fmoyen(this)"/> </td>
+                        @if($module_coef_cf!=1)
                         <td> <input type="number" class="form-control form-control-sm  mb-3" name="noteTp[{{ $e['id'] }}]"  min="0" max="20" step="0.25" oninput="fmoyen(this)"/> </td>
+                        @else
+                        <td> <input type="number" value="0" hidden name="noteTp[{{ $e['id'] }}]"/> </td>
+                        @endif
                         <td id="moyen_{{ $e['id'] }}" name="moyen[{{ $e['id'] }}]"></td>
                         <td id="etat_{{ $e['id'] }}"></td>
                         </tr>
@@ -122,7 +130,11 @@ FSDM
   <script>
     
   $(document).ready(function () {
-   var table = $('#dataTableHover').DataTable();
+   var table = $('#dataTableHover').DataTable({
+    @if($module_coef_cf==1)
+      columnDefs: [{targets: [3],sortable: false,searchable: false}]
+    @endif
+   });
 
     $('#exportb').click(function() {
       $('#exportf').submit();
@@ -138,20 +150,31 @@ FSDM
   function fmoyen(input) {
     const row = input.parentNode.parentNode;
     valueNoteCf=row.querySelector('[name^="noteCf"]').value;
-    valueNoteTp=row.querySelector('[name^="noteTp"]').value;
-    if(valueNoteCf=='')
-      noteCf = 0 ;
-    else
-      noteCf = parseFloat(valueNoteCf) ;
-    if(valueNoteTp=='' )
-      noteTp = 0 ;
-    else
-      noteTp = parseFloat(valueNoteTp); 
-        if(valueNoteTp=='' || valueNoteCf==''|| valueNoteTp==0 || valueNoteCf==0)
-          moyen = 99.99;
-        else
-          moyen = (noteCf * {{$module_coef_cf}} ) + (noteTp * {{$module_coef_tp}} );
-
+    if({{$module_coef_cf}}!=1){
+      valueNoteTp=row.querySelector('[name^="noteTp"]').value;  
+      if(valueNoteTp=='' )
+        noteTp = 0 ;
+      else
+        noteTp = parseFloat(valueNoteTp); 
+        if(valueNoteCf=='')
+        noteCf = 0 ;
+      else
+        noteCf = parseFloat(valueNoteCf) ;
+      if(valueNoteTp=='' || valueNoteCf==''|| valueNoteTp==0 || valueNoteCf==0)
+        moyen = 99.99;
+      else
+        moyen = (noteCf * {{$module_coef_cf}} ) + (noteTp * {{$module_coef_tp}} );
+    }
+    else{
+      if(valueNoteCf=='')
+        noteCf = 0 ;
+      else
+        noteCf = parseFloat(valueNoteCf) ;
+      if( valueNoteCf==''||  valueNoteCf==0)
+        moyen = 99.99;
+      else
+        moyen = noteCf  ;
+    }
     row.querySelector(`#moyen_${row.cells[0].textContent}`).textContent = moyen.toFixed(2);
     if (moyen >= 10 && moyen<=20){
       row.querySelector(`#etat_${row.cells[0].textContent}`).textContent = "Validé";
