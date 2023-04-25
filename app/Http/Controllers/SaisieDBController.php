@@ -9,29 +9,32 @@ class SaisieDBController extends Controller
     { 
         $noteTp = $request->input('noteTp'); 
         $noteCf = $request->input('noteCf'); 
+        $moyen = $request->input('moyen'); 
         $module_id = $request->input('module_id'); 
         $Session = $request->input('Session') == "Normale" ? 1 : 2; 
         $user = $request->input('user'); 
 
-        foreach ($noteTp as $id => $value) 
+        foreach ($noteCf as $id => $value) 
         { 
+
             $etudiant = Etudiant::find($id); 
             $note = $etudiant->notes()->where('module_id', $module_id)->first(); 
 
-            if ($note) 
+            
+            if ($note && $note->user_id==null) 
             { 
                 if ($Session == 1) 
                 { 
-                    if ($noteCf[$id] != null) { 
-                        $note->TP_N = $value; 
-                        $note->CF_N = $noteCf[$id]; 
+                    if ($noteCf[$id] != null ) { 
+                        $note->CF_N = $value; 
+                        $note->TP_N = $noteTp[$id] ?? null ;
                         $note->user_id = $user;
                     }
                 } 
                 else 
                 { 
                     if ($noteCf[$id] != null) { 
-                        $note->CF_R = $noteCf[$id]; 
+                        $note->CF_R = $noteCf[$id];
                         $note->user_id = $user; 
                     }
                 } 

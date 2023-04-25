@@ -29,15 +29,24 @@ class SaisirController extends Controller
         $etudiant = Note::where('module_id','=',$module_id)
                     ->where('session_id','=',$session_id)
                     ->join('etudiants','notes.etudiant_id','=','etudiants.id')
+                    ->leftjoin('users','notes.user_id','=','users.id')
                     ->select('etudiants.id',
                      'etudiants.nom',
                       'etudiants.prenom',
+                      'users.name',
+                      'users.id as profId',
+                      'notes.CF_N',
+                      'notes.TP_N',
+                      'notes.MG_N',
+                      'notes.CF_R',
+                      'notes.MG_R',
                       )->get();
     
         $module_coef_tp = Module::where('id','=',$module_id)
                         ->pluck('coef_tp')->first();
         $module_coef_cf = Module::where('id','=',$module_id)
-                        ->pluck('coef_cf')->first();            
+                        ->pluck('coef_cf')->first();           
+        
         return view('Principale.Saisir',['SESSION'=>$SESSION,
             'module_id' =>$module_id,
             'module_name'=>$module_name,

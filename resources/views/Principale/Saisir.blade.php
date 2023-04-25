@@ -78,6 +78,7 @@ FSDM
                         @endif
                         <th>moyen generale</th>
                         <th>etat</th>
+                        <th>Correcteur</th>
                       </tr>
                     </thead>
                     <tbody>
@@ -91,14 +92,22 @@ FSDM
                         <tr>
                         <td>{{ $e['id'] }} </td>
                         <td> {{$e['nom']}}  {{$e['prenom']}}</td>
-                        <td> <input type="number" class="form-control form-control-sm  mb-3"  name="noteCf[{{ $e['id'] }}]" min="0" max="20" step="0.25" oninput="fmoyen(this)"/> </td>
+
+                        @php
+                          $cfValue = $SESSION === 'Rattrapage' ? $e['CF_R'] ?? null : $e['CF_N'] ?? null;
+                        @endphp
+
+                        <td> <input type="number" class="form-control form-control-sm  mb-3"  name="noteCf[{{ $e['id'] }}]" min="0" max="20" step="0.25" value="{{ $cfValue }}" oninput="fmoyen(this)"/> </td>
+
+
                         @if($module_coef_cf!=1)
-                        <td> <input type="number" class="form-control form-control-sm  mb-3" name="noteTp[{{ $e['id'] }}]"  min="0" max="20" step="0.25" oninput="fmoyen(this)"/> </td>
+                        <td> <input type="number" class="form-control form-control-sm  mb-3" name="noteTp[{{ $e['id'] }}]"  min="0" max="20" step="0.25" value="{{ $e['TP_N'] }}" oninput="fmoyen(this)"/> </td>
                         @else
                         <td> <input type="number" value="0" hidden name="noteTp[{{ $e['id'] }}]"/> </td>
                         @endif
                         <td id="moyen_{{ $e['id'] }}" name="moyen[{{ $e['id'] }}]"></td>
                         <td id="etat_{{ $e['id'] }}"></td>
+                        <td> {{ $e['profId'] }} </td>  <!-- C'est l'id de professeur qui saisit la note pour recuperer le nom $e['name'] --> 
                         </tr>
                         @endforeach
                       </form>
@@ -130,11 +139,11 @@ FSDM
   <script>
     
   $(document).ready(function () {
-   var table = $('#dataTableHover').DataTable({
-    @if($module_coef_cf==1)
-      columnDefs: [{targets: [3],sortable: false,searchable: false}]
-    @endif
-   });
+  //  var table = $('#dataTableHover').DataTable({
+  //   @if($module_coef_cf==1)
+  //     columnDefs: [{targets: [3],sortable: false,searchable: false}]
+  //   @endif
+  //  });
 
     $('#exportb').click(function() {
       $('#exportf').submit();
