@@ -18,7 +18,6 @@ quel appareil connecté à Internet. Le présent projet a pour objectif de conce
 développer une plateforme en ligne permettant aux professeurs de saisir les notes des 
 étudiants de manière rapide, fiable et sécurisée.
 </p>
-<p>hello</p>
 </div>
 </div>
 
