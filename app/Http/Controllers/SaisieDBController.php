@@ -12,8 +12,10 @@ class SaisieDBController extends Controller
         $moyen = $request->input('moyen'); 
         $module_id = $request->input('module_id'); 
         $Session = $request->input('Session') == "Normale" ? 1 : 2; 
-        $user = $request->input('user'); 
 
+        
+        $user = $request->input('user'); 
+        
         foreach ($noteCf as $id => $value) 
         { 
 
@@ -33,7 +35,7 @@ class SaisieDBController extends Controller
                 } 
                 else 
                 { 
-                    if ($noteCf[$id] != null && $note->CF_R !=$ $noteCf[$id]) { 
+                    if ($noteCf[$id] != null && $note->CF_R != $noteCf[$id]) { 
                         $note->CF_R = $noteCf[$id];
                         $note->user_id = $user; 
                     }
@@ -44,6 +46,6 @@ class SaisieDBController extends Controller
         } 
 
         return redirect()->back(); 
-    }
+     }
 
 }

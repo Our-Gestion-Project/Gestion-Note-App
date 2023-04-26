@@ -11,16 +11,25 @@ FSDM
 @endsection
 
 @section('content')
+<form method="POST" action="{{route('noteEx',['module_name'=> $module_name])}}" id="exportf" >
+    @csrf
+    <input type="hidden" name="idS" value="{{ $SESSION=='Normale' ? 1 : 2}}">
+  </form>
+
+
+<form method="post" action="{{ route('save')}}" id="notes" name="notes">
+@csrf
+
+<input type="hidden" name="module_id" value="{{ $module_id }}">
+<input type="hidden" name="Session" value="{{ $SESSION }}">   
+<input type="hidden" name="user" value="{{ $user_id }}">   
 <div class="container-fluid mt-3">
   <div class="row">
   <div class="col-md-9">
   <div class="d-sm-flex align-items-center justify-content-between mb-4">
     <h1 class="h3 mb-0 text-gray-800">Saisir les notes du module {{ $module_name }}  session {{ $SESSION }}</h1>
   </div></div>
-  <form method="POST" action="{{route('noteEx',['module_name'=> $module_name])}}" id="exportf" >
-    @csrf
-    <input type="hidden" name="idS" value="{{ $SESSION=='Normale' ? 1 : 2}}">
-  </form>
+  
   <div class="col-md-3">
   <div class="text-right">
     <button class="btn btn-primary mb-1" id="exportb" type="submit">Exporter</button>
@@ -62,7 +71,7 @@ FSDM
                         <div class="card">
                             <div class="card-body">
                                 <div>
-                  <h6 class="m-0 font-weight-bold text-primary">{{ $module_name }}  : coefficient TP : {{$module_coef_tp}} ----{{$user_name}}----{{$user_id}}------- coefficient CF : {{$module_coef_cf}}</h6>
+                  <h6 class="m-0 font-weight-bold text-primary">{{ $module_name }} id : {{ $module_id }} : coefficient TP : {{$module_coef_tp}} ----{{$user_name}}----{{$user_id}}------- coefficient CF : {{$module_coef_cf}}</h6>
                 </div>
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
@@ -83,11 +92,7 @@ FSDM
                     </thead>
                     <tbody>
                       <!-- Zedt hadi Gher bach n tester hta t modifieha  -->
-                    <form method="post" action="{{ route('save')}}" id="notes" name="notes">
-                        @csrf
-                        <input type="hidden" name="module_id" value="{{ $module_id }}">
-                        <input type="hidden" name="Session" value="{{ $SESSION }}">   
-                        <input type="hidden" name="user" value="{{ $user_id }}">   
+                        
                         @foreach($etudiant as $e)
                         <tr>
                         <td>{{ $e['id'] }} </td>
@@ -110,7 +115,7 @@ FSDM
                         <td> {{ $e['profId'] }} </td>  <!-- C'est l'id de professeur qui saisit la note pour recuperer le nom $e['name'] --> 
                         </tr>
                         @endforeach
-                      </form>
+                     
                         <!-- Fin de modification Par Ahmed  -->
                     
                     </tbody>
@@ -122,7 +127,7 @@ FSDM
 
     </div>
 </div>
-        
+</form>     
 
 
     
@@ -139,11 +144,11 @@ FSDM
   <script>
     
   $(document).ready(function () {
-  //  var table = $('#dataTableHover').DataTable({
-  //   @if($module_coef_cf==1)
-  //     columnDefs: [{targets: [3],sortable: false,searchable: false}]
-  //   @endif
-  //  });
+    var table = $('#dataTableHover').DataTable({
+     @if($module_coef_cf==1)
+       columnDefs: [{targets: [3],sortable: false,searchable: false}]
+     @endif
+    });
 
     $('#exportb').click(function() {
       $('#exportf').submit();

@@ -58,9 +58,11 @@ class EnsureSecretCodeIsValid
                 $request->merge($variables);
                 return $next($request);
             } else {
+                if($code_saisi !=null){
                 // Secret code is incorrect, redirect to codeS route
                 return redirect()->route('codeS', ['ids' => $ids])->with('error', 'Le code que vous avez saisi est incorrect.');
-            }
+            }}
+            return redirect()->route('codeS',['ids'=>$ids]);
         }
     }
 }
