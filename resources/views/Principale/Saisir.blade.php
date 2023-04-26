@@ -32,7 +32,7 @@ FSDM
   
   <div class="col-md-3">
   <div class="text-right">
-    <button class="btn btn-primary mb-1" id="exportb" type="submit">Exporter</button>
+  <button class="btn btn-primary mb-1" id="export-button" type="button">Exporter</button>
     <button type="submit" class="btn btn-primary mb-1" id="save" name="save">Save</button>
   </div>
   </div>
@@ -100,6 +100,7 @@ FSDM
 
                         @php
                           $cfValue = $SESSION === 'Rattrapage' ? $e['CF_R'] ?? null : $e['CF_N'] ?? null;
+                          $mgValue = $SESSION === 'Rattrapage' ? $e['MG_R'] ?? null : $e['MG_N'] ?? null;
                         @endphp
 
                         <td> <input type="number" class="form-control form-control-sm  mb-3"  name="noteCf[{{ $e['id'] }}]" min="0" max="20" step="0.25" value="{{ $cfValue }}" oninput="fmoyen(this)"/> </td>
@@ -110,7 +111,8 @@ FSDM
                         @else
                         <td> <input type="number" value="0" hidden name="noteTp[{{ $e['id'] }}]"/> </td>
                         @endif
-                        <td id="moyen_{{ $e['id'] }}" name="moyen[{{ $e['id'] }}]"></td>
+                        <td id="moyen_{{ $e['id'] }}" name="moyen[{{ $e['id'] }}]">{{ $mgValue }}</td>
+                        <input type="hidden" name="moyen[{{ $e['id'] }}]" value="" id="moyen_input_{{ $e['id'] }}" data-id="{{ $e['id'] }}">
                         <td id="etat_{{ $e['id'] }}"></td>
                         <td> {{ $e['profId'] }} </td>  <!-- C'est l'id de professeur qui saisit la note pour recuperer le nom $e['name'] --> 
                         </tr>
@@ -139,6 +141,7 @@ FSDM
 <!-- Page level plugins -->
 
 
+
 <script src="{{url('vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{url('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
   <script>
@@ -150,9 +153,9 @@ FSDM
      @endif
     });
 
-    $('#exportb').click(function() {
-      $('#exportf').submit();
-    });
+    $('#export-button').click(function() {
+    $('#exportf').submit();
+  });
 
     $('#save').click(function () {
       $('#notes').submit();
@@ -190,12 +193,15 @@ FSDM
         moyen = noteCf  ;
     }
     row.querySelector(`#moyen_${row.cells[0].textContent}`).textContent = moyen.toFixed(2);
+    $('#moyen_input_' + row.cells[0].textContent).val(moyen.toFixed(2)); // ligne ajoutée
+    
     if (moyen >= 10 && moyen<=20){
       row.querySelector(`#etat_${row.cells[0].textContent}`).textContent = "Validé";
     } else {
       row.querySelector(`#etat_${row.cells[0].textContent}`).textContent = "Non validé";
     }
   }
+
   
 
 function getValid() {
