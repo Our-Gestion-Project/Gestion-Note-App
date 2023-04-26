@@ -21,11 +21,11 @@ class SaisieDBController extends Controller
             $note = $etudiant->notes()->where('module_id', $module_id)->first(); 
 
             
-            if ($note && $note->user_id==null) 
+            if ($note) 
             { 
                 if ($Session == 1) 
                 { 
-                    if ($noteCf[$id] != null ) { 
+                    if ($noteCf[$id] != null && $note->CF_N != $value) { 
                         $note->CF_N = $value; 
                         $note->TP_N = $noteTp[$id] ?? null ;
                         $note->user_id = $user;
@@ -33,7 +33,7 @@ class SaisieDBController extends Controller
                 } 
                 else 
                 { 
-                    if ($noteCf[$id] != null) { 
+                    if ($noteCf[$id] != null && $note->CF_R !=$ $noteCf[$id]) { 
                         $note->CF_R = $noteCf[$id];
                         $note->user_id = $user; 
                     }
