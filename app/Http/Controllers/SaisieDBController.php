@@ -25,7 +25,7 @@ class SaisieDBController extends Controller
             { 
                 if ($Session == 1) 
                 { 
-                    if ($noteCf[$id] != null && $note->CF_N != $value) { 
+                    if ($noteCf[$id] != null && ($note->CF_N != $value || $note->TP_N != $noteTp[$id])) { 
                         $note->CF_N = $value; 
                         $note->TP_N = $noteTp[$id] ?? null ;
                         $note->user_id = $user;
