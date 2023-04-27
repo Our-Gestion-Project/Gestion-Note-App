@@ -7,7 +7,7 @@ use App\Models\Note;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-
+use DB;
 class SaisirController extends Controller
 {
     public function saisir_note(Request $request, $ids)
@@ -29,6 +29,7 @@ class SaisirController extends Controller
             ->leftjoin('users', 'notes.user_id', '=', 'users.id')
             ->select(
                 'etudiants.id',
+                'etudiants.code',
                 'etudiants.nom',
                 'etudiants.prenom',
                 'users.name',
@@ -47,7 +48,19 @@ class SaisirController extends Controller
         $module_coef_tp = Module::where('id', $module_id)->value('coef_tp');
         $module_coef_cf = Module::where('id', $module_id)->value('coef_cf');
 
+        $module_coef_tp = Module::where('id', $module_id)->value('coef_tp');
+        $module_coef_cf = Module::where('id', $module_id)->value('coef_cf');
+        $responsable_module = Module::where('id',$module_id)->value('user_id');
+        $prof_saisit = DB::table('notes')
+        ->join('users', 'notes.user_id', '=', 'users.id')
+        ->select('users.id as user_id', 'users.name as prof_name_saisit')
+        ->distinct()
+        ->where('notes.module_id', '=', $module_id)
+        ->get();
+
         return view('Principale.Saisir', [
+            'prof_saisit' => $prof_saisit,
+            'responsable_module'=> $responsable_module,
             'SESSION' => $SESSION,
             'module_id' => $module_id,
             'module_name' => $module_name,

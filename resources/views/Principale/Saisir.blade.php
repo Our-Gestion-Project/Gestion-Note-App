@@ -14,22 +14,19 @@ FSDM
 <form method="POST" action="{{route('noteEx',['module_name'=> $module_name])}}" id="exportf" >
     @csrf
     <input type="hidden" name="idS" value="{{ $SESSION=='Normale' ? 1 : 2}}">
-  </form>
-
-
+</form>
 <form method="post" action="{{ route('save')}}" id="notes" name="notes">
 @csrf
-
 <input type="hidden" name="module_id" value="{{ $module_id }}">
 <input type="hidden" name="Session" value="{{ $SESSION }}">   
 <input type="hidden" name="user" value="{{ $user_id }}">   
 <div class="container-fluid mt-3">
   <div class="row">
-  <div class="col-md-9">
-  <div class="d-sm-flex align-items-center justify-content-between mb-4">
-    <h1 class="h3 mb-0 text-gray-800">Saisir les notes du module {{ $module_name }}  session {{ $SESSION }}</h1>
-  </div></div>
-  
+    <div class="col-md-9">
+      <div class="d-sm-flex align-items-center justify-content-between mb-4">
+        <h1 class="h3 mb-0 text-gray-800">Saisir les notes du module {{ $module_name }}  session {{ $SESSION }}</h1>
+      </div>
+    </div>
   <div class="col-md-3">
   <div class="text-right">
   <button class="btn btn-primary mb-1" id="export-button" type="button">Exporter</button>
@@ -55,7 +52,19 @@ FSDM
                                 @if (($SESSION == 'Normale' || $SESSION == 'Normal'))
                                 <h5 class="mb-1">Rattrapage  : <span id="ratt">0</span></h5>
                                 @endif
-                                <h5 class="mb-1"> Erreur : <span id="erruer">0</span></h5>
+                                <h5 class="mb-1"> Erreur : <span id="erreur">0</span></h5>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="card-header">
+                        <h4>Profs</h4>
+                    </div>
+                    <div class="card-content pb-4">
+                        <div class="recent-message d-flex px-4 py-3">
+                            <div class="name ms-4">
+                            @foreach($prof_saisit as $prof)
+                            <h5 class="mb-1"> {{ $prof->prof_name_saisit }}</h5>
+                            @endforeach
                             </div>
                         </div>
                     </div>
@@ -63,6 +72,8 @@ FSDM
               </div >
 
 
+
+              
 
 
             
@@ -77,20 +88,19 @@ FSDM
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                     <thead class="thead-light">
                       <tr>
-                        <th>id</th>
-                        <th>nom et prenom</th>
-                        <th>note cf</th>
+                        <th>Code</th>
+                        <th>Nom  et Prénom</th>
+                        <th>Cf</th>
                         @if($module_coef_cf!=1)
-                        <th>note tp</th>
+                        <th>Tp</th>
                         @else
                         <th></th>
                         @endif
-                        <th>moyen generale</th>
-                        <th>etat</th>
-                        <th>Correcteur</th>
+                        <th>Mg</th>
+                        <th>état</th>
                       </tr>
                     </thead>
-                    <tbody>
+                    <tbody id="table-body">
                       <!-- Zedt hadi Gher bach n tester hta t modifieha  -->
                         
                         @foreach($etudiant as $e)
@@ -103,18 +113,25 @@ FSDM
                           $mgValue = $SESSION === 'Rattrapage' ? $e['MG_R'] ?? null : $e['MG_N'] ?? null;
                         @endphp
 
-                        <td> <input type="number" class="form-control form-control-sm  mb-3"  name="noteCf[{{ $e['id'] }}]" min="0" max="20" step="0.25" value="{{ $cfValue }}" oninput="fmoyen(this)"/> </td>
-
+                      <!-- Check  user_id   -->
+                        @if ($e['profId'] == $user_id || $user_id == $responsable_module || $cfValue ==null || $cfValue =='')
+                            <td><input type="text" class="form-control form-control-sm mb-3" name="noteCf[{{ $e['id'] }}]" id="noteCf[{{ $e['id'] }}]" value="{{ $cfValue }}" oninput="fmoyen(this)"  onblur="getErreur(this)"/></td>
+                          @else
+                            <td><input type="text" class="form-control form-control-sm mb-3" name="noteCf[{{ $e['id'] }}]" id="noteCf[{{ $e['id'] }}]" value="{{ $cfValue }}" oninput="fmoyen(this)" disabled onblur="getErreur(this)"/></td>
+                          @endif
 
                         @if($module_coef_cf!=1)
-                        <td> <input type="number" class="form-control form-control-sm  mb-3" name="noteTp[{{ $e['id'] }}]"  min="0" max="20" step="0.25" value="{{ $e['TP_N'] }}" oninput="fmoyen(this)"/> </td>
+                          @if ($e['profId'] == $user_id || $user_id == $responsable_module || $cfValue ==null || $cfValue =='')
+                           <td> <input type="text" class="form-control form-control-sm  mb-3" name="noteTp[{{ $e['id'] }}]" value="{{ $e['TP_N'] }}" oninput="fmoyen(this)" onblur="getErreur(this)"/> </td>
+                          @else
+                          <td> <input type="text" class="form-control form-control-sm  mb-3" name="noteTp[{{ $e['id'] }}]" value="{{ $e['TP_N'] }}" oninput="fmoyen(this)" disabled onblur="getErreur(this)"/> </td>
+                          @endif
                         @else
-                        <td> <input type="number" value="0" hidden name="noteTp[{{ $e['id'] }}]"/> </td>
+                          <td> <input type="number" value="0" hidden name="noteTp[{{ $e['id'] }}]"/> </td>
                         @endif
                         <td id="moyen_{{ $e['id'] }}" name="moyen[{{ $e['id'] }}]">{{ $mgValue }}</td>
                         <input type="hidden" name="moyen[{{ $e['id'] }}]" value="" id="moyen_input_{{ $e['id'] }}" data-id="{{ $e['id'] }}">
-                        <td id="etat_{{ $e['id'] }}"></td>
-                        <td> {{ $e['profId'] }} </td>  <!-- C'est l'id de professeur qui saisit la note pour recuperer le nom $e['name'] --> 
+                        <td id="etat_{{ $e['id'] }}" ></td>
                         </tr>
                         @endforeach
                      
@@ -145,7 +162,6 @@ FSDM
 <script src="{{url('vendor/datatables/jquery.dataTables.min.js')}}"></script>
   <script src="{{url('vendor/datatables/dataTables.bootstrap4.min.js')}}"></script>
   <script>
-    
   $(document).ready(function () {
     var table = $('#dataTableHover').DataTable({
      @if($module_coef_cf==1)
@@ -158,12 +174,16 @@ FSDM
   });
 
     $('#save').click(function () {
-      $('#notes').submit();
+        $('#notes').submit();
     });
 });
   </script>
 
   <script>
+  function replaceCommaWithDot(str) {
+    
+    return str.replace(',', '.');
+  }
   function fmoyen(input) {
     const row = input.parentNode.parentNode;
     valueNoteCf=row.querySelector('[name^="noteCf"]').value;
@@ -200,8 +220,45 @@ FSDM
     } else {
       row.querySelector(`#etat_${row.cells[0].textContent}`).textContent = "Non validé";
     }
+    
   }
 
+
+
+
+function getEtat(){
+  const thElements = document.getElementsByTagName("tr");
+  nb=thElements[1].children.length-1;
+  for (let i = 1; i < thElements.length; i++) {
+      mg=thElements[i].children[4].innerText;
+      if(mg!=''){
+        if (mg >= 10 && mg<=20)
+        thElements[i].children[nb].textContent="Validé";
+        else 
+        thElements[i].children[nb].textContent="Non validé";
+      }
+  }
+}
+
+
+
+
+function getErreur(input){
+  if(input.value.includes(',')){
+    newvalue=replaceCommaWithDot(input.value);
+    input.value=newvalue;
+  }
+  else 
+  newvalue=input.value;
+ if(newvalue > 20 || newvalue < 0 || isNaN(newvalue))
+ {
+  document.getElementById('erreur').innerText = parseInt(document.getElementById('erreur').innerText)+1;
+        input.removeAttribute("class");
+        input.setAttribute("class", "form-control form-control-sm mb-3 is-invalid");
+        document.getElementById('save').disabled = true;
+ }
+
+}
   
 
 function getValid() {
@@ -215,17 +272,22 @@ function getValid() {
     @endforeach
     return nb;
   }
+
+
+
   function getNoValid() {
     let nb = 0;
     let moyen;
     @foreach($etudiant as $e)
       moyen = document.getElementById(`moyen_{{ $e['id'] }}`);
-      if (moyen !== null && !(parseFloat(moyen.innerText) >= 10 && parseFloat(moyen.innerText) <= 20)) {
+      if (moyen !== null && parseFloat(moyen.innerText)>20 ) {
         nb++;
       }
     @endforeach
     return nb;
   }
+
+
   function getRatt() {
     let nb = 0;
     let moyen;
@@ -237,6 +299,11 @@ function getValid() {
     @endforeach
     return nb;
   }
+
+  
+
+
+
 document.addEventListener('DOMContentLoaded', function() {
     nbValide = getValid();
     document.getElementById('valide').innerText = nbValide;
@@ -244,6 +311,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('noValide').innerText = nbNoValide;
     nbRatt = getRatt();
     document.getElementById('ratt').innerText = nbRatt;
+    getEtat();
+    
   });
 </script>
 @endsection

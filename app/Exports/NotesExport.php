@@ -32,7 +32,7 @@ class NotesExport implements FromCollection, WithStrictNullComparison, WithHeadi
                 ->where('notes.module_id', '=', $responsabilites_table->module_id)
                 ->where('notes.session_id', '=', $responsabilites_table->session_id)
                 ->select(
-                    'etudiants.id',
+                    'etudiants.Code',
                     'etudiants.nom',
                     'etudiants.prenom',
                     'etudiants.CNE',
@@ -48,9 +48,9 @@ class NotesExport implements FromCollection, WithStrictNullComparison, WithHeadi
                 ->join('etudiants', 'notes.etudiant_id', '=', 'etudiants.id')
                 ->where('notes.module_id', '=', $responsabilites_table->module_id)
                 ->where('notes.session_id', '=', $responsabilites_table->session_id)
-
+                ->where('notes.MG_N', '<', 10)
                 ->select(
-                    'etudiants.id',
+                    'etudiants.Code',
                     'etudiants.nom',
                     'etudiants.prenom',
                     'etudiants.CNE',
@@ -115,7 +115,7 @@ class NotesExport implements FromCollection, WithStrictNullComparison, WithHeadi
     
             // si $this->idS vaut 1, on retourne les colonnes suivantes
             return [
-                $row->id,
+                $row->Code,
                 $row->nom,
                 $row->prenom,
                 $row->CNE,
@@ -138,7 +138,7 @@ class NotesExport implements FromCollection, WithStrictNullComparison, WithHeadi
     
             // si $this->idS vaut 2, on retourne les colonnes suivantes
             return [
-                $row->id,
+                $row->Code,
                 $row->nom,
                 $row->prenom,
                 $row->CNE,
