@@ -244,6 +244,7 @@ function getEtat(){
 
 
 function getErreur(input){
+  document.getElementById('save').disabled = false;
   if(input.value.includes(',')){
     newvalue=replaceCommaWithDot(input.value);
     input.value=newvalue;
@@ -253,9 +254,9 @@ function getErreur(input){
  if(newvalue > 20 || newvalue < 0 || isNaN(newvalue))
  {
   document.getElementById('erreur').innerText = parseInt(document.getElementById('erreur').innerText)+1;
-        input.removeAttribute("class");
-        input.setAttribute("class", "form-control form-control-sm mb-3 is-invalid");
-        document.getElementById('save').disabled = true;
+  input.removeAttribute("class");
+  input.setAttribute("class", "form-control form-control-sm mb-3 is-invalid");
+  document.getElementById('save').disabled = true;
  }
 
 }
