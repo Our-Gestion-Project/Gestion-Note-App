@@ -30,7 +30,7 @@ class EnsureSecretCodeIsValid
             $module_name = $module->Intitule;
             $user_name = $user->name;
             $user_id = $user->id;
-            $SESSION = ($ids == 1) ? "Normale" : "Rattrapage";
+            $SESSION = ($ids == 1) ? "Normal" : "Rattrapage";
             $variables = [
                 'ids' => $ids,
                 'SESSION' => $SESSION,
@@ -48,7 +48,7 @@ class EnsureSecretCodeIsValid
                 $module_name = $module->Intitule;
                 $user_name = $user->name;
                 $user_id = $user->id;
-                $SESSION = ($ids == 1) ? "Normale" : "Rattrapage";
+                $SESSION = ($ids == 1) ? "Normal" : "Rattrapage";
                 $variables = [
                     'ids' => $ids,
                     'SESSION' => $SESSION,

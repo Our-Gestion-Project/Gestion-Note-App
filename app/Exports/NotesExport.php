@@ -75,9 +75,9 @@ class NotesExport implements FromCollection, WithStrictNullComparison, WithHeadi
             'Prenom Etudiant',
             'CNE Etudiant',
             'CNI Etudiant',
-            'Controle Finale Normale',
-            'Controle Tp Normale',
-            'Moyen Generale Normale',
+            'Controle Finale Normal',
+            'Controle Tp Normal',
+            'Moyen Generale Normal',
             'etat'
         ];
         }
@@ -88,9 +88,9 @@ class NotesExport implements FromCollection, WithStrictNullComparison, WithHeadi
             'Prenom Etudiant',
             'CNE Etudiant',
             'CNI Etudiant',
-            'Controle Finale Normale',
-            'Controle Tp Normale',
-            'Moyen Generale Normale',
+            'Controle Finale Normal',
+            'Controle Tp Normal',
+            'Moyen Generale Normal',
             'Controle Finale Rattrapage',
             'Moyen Generale Rattrapage',
             'etat'

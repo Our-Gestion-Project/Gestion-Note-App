@@ -13,7 +13,7 @@ FSDM
 @section('content')
 <form method="POST" action="{{route('noteEx',['module_name'=> $module_name])}}" id="exportf" >
     @csrf
-    <input type="hidden" name="idS" value="{{ $SESSION=='Normale' ? 1 : 2}}">
+    <input type="hidden" name="idS" value="{{ $SESSION=='Normal' ? 1 : 2}}">
 </form>
 <form method="post" action="{{ route('save')}}" id="notes" name="notes">
 @csrf
@@ -49,7 +49,7 @@ FSDM
                             <div class="name ms-4">
                                 <h5 class="mb-1">Validé  : <span id="valide">0</span></h5>
                                 <h5 class="mb-1">Non Validé : <span id="noValide">0</span></h5>
-                                @if (($SESSION == 'Normale' || $SESSION == 'Normal'))
+                                @if (($SESSION == 'Normal' || $SESSION == 'Normal'))
                                 <h5 class="mb-1">Rattrapage  : <span id="ratt">0</span></h5>
                                 @endif
                                 <h5 class="mb-1"> Erreur : <span id="erreur">0</span></h5>
@@ -85,7 +85,7 @@ FSDM
                         <div class="card">
                             <div class="card-body">
                                 <div>
-                  <h6 class="m-0 font-weight-bold text-primary">{{ $module_name }} id : {{ $module_id }} : coefficient TP : {{$module_coef_tp}} ----{{$user_name}}----{{$user_id}}------- coefficient CF : {{$module_coef_cf}}</h6>
+                  <!-- <h6 class="m-0 font-weight-bold text-primary">{{ $module_name }} id : {{ $module_id }} : coefficient TP : {{$module_coef_tp}} ----{{$user_name}}----{{$user_id}}------- coefficient CF : {{$module_coef_cf}}</h6> -->
                 </div>
                 <div class="table-responsive p-3">
                   <table class="table align-items-center table-flush table-hover" id="dataTableHover">
@@ -222,7 +222,7 @@ FSDM
     if (moyen >= 10 && moyen<=20){
       row.querySelectorAll('td')[row.querySelectorAll('td').length-1].textContent = "Validé";
     } else {
-      if(moyen<10 && ('{{$SESSION}}'==='Normale'|| '{{$SESSION}}'==='Normal') )
+      if(moyen<10 && ('{{$SESSION}}'==='Normal'|| '{{$SESSION}}'==='Normal') )
       row.querySelectorAll('td')[row.querySelectorAll('td').length-1].textContent= "Rattrapage";
       else
       row.querySelectorAll('td')[row.querySelectorAll('td').length-1].textContent = "Non Validé";
@@ -244,7 +244,7 @@ function getEtat(){
         if (mg >= 10 && mg<=20)
         thElements[i].children[nb].textContent="Validé";
         else {
-          if(mg<10 && ('{{$SESSION}}'==='Normale'|| '{{$SESSION}}'==='Normal') )
+          if(mg<10 && ('{{$SESSION}}'==='Normal'|| '{{$SESSION}}'==='Normal') )
           thElements[i].children[nb].textContent = "Rattrapage";
           else
           thElements[i].children[nb].textContent="Non Validé";
@@ -325,7 +325,7 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('valide').innerText = nbValide;
     nbNoValide = getNoValid();
     document.getElementById('noValide').innerText = nbNoValide;
-    if('{{$SESSION}}'==='Normale'|| '{{$SESSION}}'==='Normal'){
+    if('{{$SESSION}}'==='Normal'|| '{{$SESSION}}'==='Normal'){
       nbRatt = getRatt();
       document.getElementById('ratt').innerText = nbRatt;
     }

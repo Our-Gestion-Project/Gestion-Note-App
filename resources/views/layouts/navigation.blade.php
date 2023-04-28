@@ -47,7 +47,7 @@
 
                     <x-slot name="content">
                     <x-dropdown-link href="{{route('codeS',['ids'=>1])}}">
-                        Sesstion <b>Normale</b>
+                        Sesstion <b>Normal</b>
                     </x-dropdown-link>
 
                     <x-dropdown-link href="{{route('codeS',['ids'=>2])}}">
@@ -130,7 +130,7 @@
             </x-responsive-nav-link>
 
             <x-responsive-nav-link href="{{route('codeS',['ids'=>1])}}">
-                        Sesstion <b>Normale</b>
+                        Sesstion <b>Normal</b>
             </x-responsive-nav-link>
 
             <x-responsive-nav-link href="{{route('codeS',['ids'=>2])}}">

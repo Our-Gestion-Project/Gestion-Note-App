@@ -11,7 +11,7 @@ class SaisieDBController extends Controller
         $noteCf = $request->input('noteCf'); 
         $moyen = $request->input('moyen'); 
         $module_id = $request->input('module_id'); 
-        $Session = $request->input('Session') == "Normale" ? 1 : 2;         
+        $Session = $request->input('Session') == "Normal" ? 1 : 2;         
         $user = $request->input('user'); 
         $moyen = $request->input('moyen');
         foreach ($noteCf as $id => $value) 
