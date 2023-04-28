@@ -24,13 +24,13 @@ FSDM
   <div class="row">
     <div class="col-md-9">
       <div class="d-sm-flex align-items-center justify-content-between mb-4">
-        <h1 class="h3 mb-0 text-gray-800">Saisir les notes du module {{ $module_name }}  session {{ $SESSION }}</h1>
+        <h1 class="h3 mb-0 text-gray-800">Module {{ $module_name }}  Session {{ $SESSION }}</h1>
       </div>
     </div>
   <div class="col-md-3">
   <div class="text-right">
   <button class="btn btn-primary mb-1" id="export-button" type="button">Exporter</button>
-    <button type="submit" class="btn btn-primary mb-1" id="save" name="save">Save</button>
+    <button type="submit" class="btn btn-primary mb-1" id="save" name="save">Enregistrer</button>
   </div>
   </div>
   </div>
@@ -56,9 +56,12 @@ FSDM
                             </div>
                         </div>
                     </div>
+                    <div class="dropdown-divider"></div>  
+                    
                     <div class="card-header">
-                        <h4>Profs</h4>
+                        <h4>Inséré par :</h4>
                     </div>
+                    
                     <div class="card-content pb-4">
                         <div class="recent-message d-flex px-4 py-3">
                             <div class="name ms-4">
@@ -97,7 +100,7 @@ FSDM
                         <th></th>
                         @endif
                         <th>Mg</th>
-                        <th>état</th>
+                        <th>État</th>
                       </tr>
                     </thead>
                     <tbody id="table-body">
@@ -105,8 +108,8 @@ FSDM
                         
                         @foreach($etudiant as $e)
                         <tr>
-                        <td>{{ $e['id'] }} </td>
-                        <td> {{$e['nom']}}  {{$e['prenom']}}</td>
+                        <td>{{ $e['code'] }} </td>
+                        <td> {{$e['nom']}} {{$e['prenom']}}</td>
 
                         @php
                           $cfValue = $SESSION === 'Rattrapage' ? $e['CF_R'] ?? null : $e['CF_N'] ?? null;
@@ -130,7 +133,7 @@ FSDM
                           <td> <input type="number" value="0" hidden name="noteTp[{{ $e['id'] }}]"/> </td>
                         @endif
                         <td id="moyen_{{ $e['id'] }}" name="moyen[{{ $e['id'] }}]">{{ $mgValue }}</td>
-                        <input type="hidden" name="moyen[{{ $e['id'] }}]" value="" id="moyen_input_{{ $e['id'] }}" data-id="{{ $e['id'] }}">
+                        <input type="hidden" name="moyen[{{ $e['id'] }}]"  id="moyen_input_{{ $e['id'] }}" data-id="{{ $e['id'] }}">
                         <td id="etat_{{ $e['id'] }}" ></td>
                         </tr>
                         @endforeach
@@ -212,13 +215,17 @@ FSDM
       else
         moyen = noteCf  ;
     }
-    row.querySelector(`#moyen_${row.cells[0].textContent}`).textContent = moyen.toFixed(2);
-    $('#moyen_input_' + row.cells[0].textContent).val(moyen.toFixed(2)); // ligne ajoutée
+    console.log(row.querySelectorAll('input')[2]);
+    row.querySelectorAll('td')[row.querySelectorAll('td').length-2].textContent = moyen.toFixed(2);
+    row.querySelectorAll('input')[2].setAttribute("value",moyen.toFixed(2));
     
     if (moyen >= 10 && moyen<=20){
-      row.querySelector(`#etat_${row.cells[0].textContent}`).textContent = "Validé";
+      row.querySelectorAll('td')[row.querySelectorAll('td').length-1].textContent = "Validé";
     } else {
-      row.querySelector(`#etat_${row.cells[0].textContent}`).textContent = "Non validé";
+      if(moyen<10 && ('{{$SESSION}}'==='Normale'|| '{{$SESSION}}'==='Normal') )
+      row.querySelectorAll('td')[row.querySelectorAll('td').length-1].textContent= "Rattrapage";
+      else
+      row.querySelectorAll('td')[row.querySelectorAll('td').length-1].textContent = "Non Validé";
     }
     
   }
@@ -229,13 +236,19 @@ FSDM
 function getEtat(){
   const thElements = document.getElementsByTagName("tr");
   nb=thElements[1].children.length-1;
+  //console.log(nb);
   for (let i = 1; i < thElements.length; i++) {
       mg=thElements[i].children[4].innerText;
+      //console.log(mg);
       if(mg!=''){
         if (mg >= 10 && mg<=20)
         thElements[i].children[nb].textContent="Validé";
-        else 
-        thElements[i].children[nb].textContent="Non validé";
+        else {
+          if(mg<10 && ('{{$SESSION}}'==='Normale'|| '{{$SESSION}}'==='Normal') )
+          thElements[i].children[nb].textContent = "Rattrapage";
+          else
+          thElements[i].children[nb].textContent="Non Validé";
+        }
       }
   }
 }
@@ -244,6 +257,8 @@ function getEtat(){
 
 
 function getErreur(input){
+  input.removeAttribute("class");
+  input.setAttribute("class", "form-control form-control-sm mb-3");
   document.getElementById('save').disabled = false;
   if(input.value.includes(',')){
     newvalue=replaceCommaWithDot(input.value);
@@ -310,9 +325,11 @@ document.addEventListener('DOMContentLoaded', function() {
     document.getElementById('valide').innerText = nbValide;
     nbNoValide = getNoValid();
     document.getElementById('noValide').innerText = nbNoValide;
-    nbRatt = getRatt();
-    document.getElementById('ratt').innerText = nbRatt;
-    getEtat();
+    if('{{$SESSION}}'==='Normale'|| '{{$SESSION}}'==='Normal'){
+      nbRatt = getRatt();
+      document.getElementById('ratt').innerText = nbRatt;
+    }
+    getEtat();  
     
   });
 </script>

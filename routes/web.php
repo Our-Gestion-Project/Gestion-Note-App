@@ -54,7 +54,3 @@ require __DIR__.'/auth.php';
 
 
 
-//ghi khliha
-Route::get('/test', function () {
-    return view('test');
-})->name('test');
