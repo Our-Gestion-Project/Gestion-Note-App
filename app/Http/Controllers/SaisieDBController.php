@@ -34,7 +34,7 @@ class SaisieDBController extends Controller
                 } 
                 else 
                 { 
-                    if ($noteCf[$id] != null && ($note->CF_N != $value || $note->TP_N != $noteTp[$id])) { 
+                    if ($noteCf[$id] != null && ($note->CF_R != $value || $note->TP_N != $noteTp[$id])) { 
                         $note->CF_R = $noteCf[$id];
                         $note->TP_N = $noteTp[$id] ?? null;
                         $note->MG_R = $moyen[$id];
