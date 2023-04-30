@@ -218,7 +218,7 @@
             if (moyen >= 10 && moyen <= 20) {
                 row.querySelectorAll('td')[row.querySelectorAll('td').length - 1].textContent = "Validé";
             } else {
-                if (moyen < 10 && ('{{ $SESSION }}' === 'Normal' || '{{ $SESSION }}' === 'Normal'))
+                if (moyen < 10 && '{{ $SESSION }}' === 'Normal')
                     row.querySelectorAll('td')[row.querySelectorAll('td').length - 1].textContent = "Rattrapage";
                 else
                     row.querySelectorAll('td')[row.querySelectorAll('td').length - 1].textContent = "Non Validé";

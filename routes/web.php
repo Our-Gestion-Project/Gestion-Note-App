@@ -18,9 +18,15 @@ use App\Http\Controllers\SaisieDBController;
 |
 */
 
+/*
 Route::get('/', function () {
     return view('welcome');
 })->name('welcome');
+*/
+Route::get('/', function () {
+    return view('auth.login');
+})->name('login');
+
 
 Route::get('/dashboard', function () {
     return view('dashboard');
