@@ -105,7 +105,7 @@ class NotesExport implements FromCollection, WithStrictNullComparison, WithHeadi
         if ($this->idS == 1) {
             $MG_N = $row->MG_N;
     
-            if ($MG_N !== null && $MG_N >= 10) {
+            if ($MG_N !== null && $MG_N >= 10 && $MG_N != 99.99) {
                 $etat = 'Valide';
             } elseif ($MG_N !== null && $MG_N < 10) {
                 $etat = 'Rattrapage';
