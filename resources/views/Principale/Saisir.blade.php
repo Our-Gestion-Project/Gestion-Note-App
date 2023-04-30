@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    FSDM
+    Notes {{ $SESSION }}
 @endsection
 
 @section('css')

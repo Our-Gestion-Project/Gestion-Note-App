@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    FSDM
+    Code Secret
 @endsection
 
 @section('css')

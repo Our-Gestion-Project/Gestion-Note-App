@@ -1,7 +1,7 @@
 @extends('layouts.master')
 
 @section('title')
-    FSDM
+Espace Enseignant
 @endsection
 
 @section('css')
