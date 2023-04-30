@@ -20,11 +20,16 @@
         <input type="hidden" name="user" value="{{ $user_id }}">
         <div class="container-fluid mt-3">
             <div class="row">
-                <div class="col-md-9">
+                <div class="col-md-8">
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
                         <h1 class="h3 mb-0 text-gray-800">Module {{ $module_name }} Session {{ $SESSION }}</h1>
                     </div>
                 </div>
+                <div class="col-md-1">
+                <div class="badge badge-info ">coef TP : {{ $module_coef_tp }}</div>
+                <div class="badge badge-info "> coef CF : {{ $module_coef_cf }}</div>
+                </div>
+                
                 <div class="col-md-3">
                     <div class="text-right">
                         <button class="btn btn-primary mb-1" id="export-button" type="button">Exporter</button>
@@ -75,9 +80,6 @@
                 <div class="col-md-9">
                     <div class="card">
                         <div class="card-body">
-                            <div>
-                                <!-- <h6 class="m-0 font-weight-bold text-primary">{{ $module_name }} id : {{ $module_id }} : coefficient TP : {{ $module_coef_tp }} ----{{ $user_name }}----{{ $user_id }}------- coefficient CF : {{ $module_coef_cf }}</h6> -->
-                            </div>
                             <div class="table-responsive p-3">
                                 <table class="table align-items-center table-flush table-hover" id="dataTableHover">
                                     <thead class="thead-light">
